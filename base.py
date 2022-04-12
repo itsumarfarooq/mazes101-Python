@@ -1,6 +1,3 @@
-from pprint import pprint
-
-
 class Boundary:
     def __init__(self, is_wall: bool):
         self.is_wall = is_wall
