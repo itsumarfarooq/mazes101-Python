@@ -2,34 +2,34 @@ from pprint import pprint
 
 
 class Boundary:
-    def __init__(self, is_open):
-        self.is_open = is_open
+    def __init__(self, is_wall: bool):
+        self.is_wall = is_wall
 
     def open(self):
-        self.is_open = True
+        self.is_wall = False
 
     def close(self):
-        self.is_open = False
+        self.is_wall = True
 
     def __bool__(self):
-        return self.is_open
+        return self.is_wall
 
 
 class Cell:
-    def __init__(self, top=None, right=None, bottom=None, left=None):
-        self.top = top if isinstance(top,Boundary) else Boundary(False)
-        self.right = right if isinstance(right,Boundary) else Boundary(False)
-        self.bottom = bottom if isinstance(bottom,Boundary) else Boundary(False)
-        self.left = left if isinstance(left,Boundary) else Boundary(False)
+    def __init__(self, top: Boundary = Boundary(True), right: Boundary = Boundary(True), bottom: Boundary = Boundary(True), left: Boundary = Boundary(True)):
+        self.top = top
+        self.right = right
+        self.bottom = bottom
+        self.left = left
 
 
 class RectangularBoard:
-    def __init__(self, height, width):
+    def __init__(self, height: int, width: int):
         self.height = height
         self.width = width
         self.cells = self._generate_board(height, width)
 
-    def _generate_board(self, height, width):
+    def _generate_board(self, height: int, width: int):
         cells = []
         top_cell = False
         for y in range(height):
@@ -50,7 +50,3 @@ class RectangularBoard:
                 row.append(cell)
             cells.append(row)
         return cells
-
-
-board = RectangularBoard(2, 2)
-pprint(board.cells)
